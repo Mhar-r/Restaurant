@@ -37,7 +37,7 @@ export default function Register() {
   }
 
     try {
-      await axios.post("http://192.168.0.105:8000/api/register", {
+      await axios.post("http://192.168.1.77:8000/api/register", {
         name,
         email,
         phone,

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import { Picker } from '@react-native-picker/picker';
-import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
+import { Picker } from "@react-native-picker/picker";
+import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 import axios from "axios";
 import { useRouter } from "expo-router";
 
 import { GlobalStyles, Colors } from "../constants/Theme"; // cambia la ruta según tu estructura
-
 
 export default function RegisterAdmin() {
   const [name, setName] = useState("");
@@ -20,27 +19,25 @@ export default function RegisterAdmin() {
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
-
   const handleRegister = async () => {
-
     // Validar que las contraseñas coincidan
-  if (password !== confirmPassword) {
-    Alert.alert("Error", "Las contraseñas no coinciden.");
-    return;
-  }
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Las contraseñas no coinciden.");
+      return;
+    }
 
-  // Validar criterios de contraseña
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-  if (!passwordRegex.test(password)) {
-    Alert.alert(
-      "Error",
-      "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número."
-    );
-    return;
-  }
-  
+    // Validar criterios de contraseña
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      Alert.alert(
+        "Error",
+        "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número."
+      );
+      return;
+    }
+
     try {
-      await axios.post("http://192.168.0.105:8000/api/register", {
+      await axios.post("http://192.168.1.77:8000/api/register", {
         name,
         email,
         phone,
@@ -50,17 +47,19 @@ export default function RegisterAdmin() {
 
       Alert.alert("¡Registro exitoso!", "Nuevo usuario registrado.");
       router.replace("/login"); // Redirigir a la vista de administrador
-
     } catch (error: any) {
-    console.log("Error en el registro:", error);
-    Alert.alert("Error", "No se pudo registrar. Verifica los datos o intenta más tarde.");
-  }
+      console.log("Error en el registro:", error);
+      Alert.alert(
+        "Error",
+        "No se pudo registrar. Verifica los datos o intenta más tarde."
+      );
+    }
   };
 
   return (
     <View style={GlobalStyles.container}>
       <Text style={GlobalStyles.title}>Registro de Nuevo Usuario</Text>
-  
+
       {/* Input Nombre */}
       <Text style={GlobalStyles.label}>Nombre</Text>
       <TextInput
@@ -69,7 +68,7 @@ export default function RegisterAdmin() {
         onChangeText={setName}
         style={GlobalStyles.input}
       />
-  
+
       {/* Input Correo */}
       <Text style={GlobalStyles.label}>Correo</Text>
       <TextInput
@@ -80,7 +79,7 @@ export default function RegisterAdmin() {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-  
+
       {/* Input Teléfono */}
       <Text style={GlobalStyles.label}>Teléfono</Text>
       <TextInput
@@ -90,12 +89,12 @@ export default function RegisterAdmin() {
         style={GlobalStyles.input}
         keyboardType="phone-pad"
       />
-  
+
       {/* Contraseñas */}
       <Text style={GlobalStyles.label}>Contraseña</Text>
       <View style={{ position: "relative" }}>
         <TextInput
-           placeholder="Contraseña"
+          placeholder="Contraseña"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={!showPassword}
@@ -110,7 +109,7 @@ export default function RegisterAdmin() {
           secureTextEntry={!showPassword}
           style={GlobalStyles.input}
         />
-  
+
         <TouchableOpacity
           onPress={() => setShowPassword(!showPassword)}
           style={{ position: "absolute", right: 10, top: 15 }}
@@ -122,7 +121,7 @@ export default function RegisterAdmin() {
           />
         </TouchableOpacity>
       </View>
-  
+
       {/* Rol */}
       <Text style={GlobalStyles.label}>Rol</Text>
       <Picker
@@ -134,13 +133,11 @@ export default function RegisterAdmin() {
         <Picker.Item label="Cajero" value={2} />
         <Picker.Item label="Administrador" value={1} />
       </Picker>
-  
+
       {/* Botón */}
       <TouchableOpacity style={GlobalStyles.button} onPress={handleRegister}>
         <Text style={GlobalStyles.buttonText}>Registrar</Text>
       </TouchableOpacity>
     </View>
   );
-  
 }
-
