@@ -4,6 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import axios from "axios";
+import { CONFIG } from '../config';
 import { useRouter } from "expo-router";
 
 import { GlobalStyles, Colors } from "../constants/Theme"; // cambia la ruta según tu estructura
@@ -16,6 +17,7 @@ export default function RegisterAdmin() {
   const [role, setRole] = useState(3); // Default to Client
   const [showPassword, setShowPassword] = useState(false); // Estado para la visibilidad de la contraseña
   const router = useRouter();
+  
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -37,7 +39,7 @@ export default function RegisterAdmin() {
     }
 
     try {
-      await axios.post("http://192.168.1.77:8000/api/register", {
+      await axios.post(`${CONFIG.BASE_URL}/api/register`, {
         name,
         email,
         phone,

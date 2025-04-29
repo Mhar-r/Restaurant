@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { View, Text, TextInput, Alert,TouchableOpacity, TouchableHighlight } from "react-native";
 import axios from "axios";
+import { CONFIG } from '../config';
 import { useRouter } from "expo-router";
 import { Ionicons } from '@expo/vector-icons';
+
 
 import { GlobalStyles, Colors } from "../constants/Theme"; // cambia la ruta según tu estructura
 
@@ -37,7 +39,7 @@ export default function Register() {
   }
 
     try {
-      await axios.post("http://192.168.1.77:8000/api/register", {
+      await axios.post(`${CONFIG.BASE_URL}/api/register`, {
         name,
         email,
         phone,

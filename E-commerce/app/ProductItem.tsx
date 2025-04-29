@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { CONFIG } from '../config';
 interface Props {
   item: {
     id: number;
@@ -18,7 +18,7 @@ export default function ProductItem({ item, onDelete }: Props) {
     <View style={styles.productItem}>
       {item.image && (
         <Image
-          source={{ uri: `http://192.168.1.77:8000/storage/${item.image}` }}
+          source={{ uri: `${CONFIG.BASE_URL}/storage/${item.image}` }}
           style={styles.productImage}
         />
       )}
