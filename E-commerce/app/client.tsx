@@ -12,6 +12,7 @@ import {
   ScrollView,
 } from "react-native";
 import axios from "axios";
+import { CONFIG } from '../config';
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import ProductItem from "./ProductItem";
@@ -35,7 +36,7 @@ export default function ProductsScreen() {
   }, []);
 
   const fetchProducts = async () => {
-    const response = await axios.get("http://192.168.1.77:8000/api/products");
+    const response = await axios.get(`${CONFIG.BASE_URL}/api/products`);
     setProducts(response.data);
   };
 
@@ -67,7 +68,7 @@ export default function ProductsScreen() {
       } as any);
     }
 
-    await axios.post("http://192.168.1.77:8000/api/products", formData, {
+    await axios.post(`${CONFIG.BASE_URL}/api/products`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
@@ -77,7 +78,7 @@ export default function ProductsScreen() {
   };
 
   const handleDelete = async (id: number) => {
-    await axios.delete(`http://192.168.1.77:8000/api/products/${id}`);
+    await axios.delete(`http://192.168.1.77:8080/api/products/${id}`);
     fetchProducts();
   };
 

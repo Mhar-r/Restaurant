@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import axios from "axios";
+import { CONFIG } from '../config'; // Asegúrate de importar el archivo correctamente
+
 import { useAuth } from "../hooks/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
@@ -24,7 +26,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://192.168.1.77:8000/api/login", {
+      const response = await axios.post(`${CONFIG.BASE_URL}/api/login`, {
         email: email.trim().toLowerCase(),
         password: password.trim(),
       });
