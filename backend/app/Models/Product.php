@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -6,16 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'name',
-        'description',
-        'price',
-        'category_id',
-        'image',
-        'available',
-    ];
-
-    protected $casts = [
-        'available' => 'boolean',
+        'name', 'description', 'price', 'category_id', 'image', 'available',
     ];
 }
+
 
